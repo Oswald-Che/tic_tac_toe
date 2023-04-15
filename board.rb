@@ -40,7 +40,7 @@ class Board
       puts 'Position already occupied or indeterminate  '
       display
       puts 'input different a different number'
-      player(gets.chomp.to_i, sigil)
+     return player(gets.chomp.to_i, sigil)
     end
 
     @board[num - 1] = sigil == 'X' ? 'X' : 'O'
