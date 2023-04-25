@@ -1,8 +1,9 @@
 class Board
-  def initialize(board = Array.new(9, ' '))
+  def initialize(result_x = [], result_o = [], board = Array.new(9, ' '))
     @solution = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 5, 9], [3, 6, 9], [1, 4, 7], [2, 5, 8], [3, 5, 7]]
     @board = board
-    @result , @resultO , @resultX = [] , [] , []
+    @result_o = result_o
+    @result_x = result_x
     @winner = ''
   end
 
@@ -11,18 +12,16 @@ class Board
   end
 
   def win?
-    bool = false
     @solution.each do |item|
-      n = item[0] - 1
-      if  (item & @resultX) == item
-        @winner = @board[n]
-        bool = true
-      elsif (item & @resultO) == item
-        @winner = @board[n]
-        bool = true
+      if (item & @result_x) == item
+        @winner = result_x[0]
+        return true
+      elsif (item & @result_o) == item
+        @winner = result_o[0]
+        return true
       end
     end
-    bool
+    false
   end
 
   def display
@@ -40,7 +39,7 @@ class Board
       puts 'Position already occupied or indeterminate  '
       display
       puts 'input different a different number'
-     return player(gets.chomp.to_i, sigil)
+      return player(gets.chomp.to_i, sigil)
     end
 
     @board[num - 1] = sigil == 'X' ? 'X' : 'O'
