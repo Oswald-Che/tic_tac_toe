@@ -58,7 +58,7 @@ class Board
       print " for winning the game\n"
       true
     elsif full?
-      print "Game Over  \n No Space Left"
+      print "Game Over\nNo Space Left"
       true
     end
   end

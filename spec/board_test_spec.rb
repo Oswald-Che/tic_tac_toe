@@ -186,7 +186,7 @@ describe Board do
         expect(game_end).to be_game_over
       end
 
-      it 'recieve print 3 times' do
+      it 'recieve print once' do
         expect(game_end).to receive(:print).once
         game_end.game_over?
       end
