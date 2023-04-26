@@ -46,6 +46,16 @@ class Board
     @result.push(num)
     sigil == 'X' ? @resultX.push(num) : @resultO.push(num)
   end
+
+  def verify_number(num)
+    loop do
+      result = @result_o + @result_x
+      return num if result.none?(num.to_i) && num.match(/[1-9]/)
+
+      puts "Position already occupied or indeterminate \n input position again"
+      num = gets.chomp
+    end
+  end
  
   def checker
     if win?

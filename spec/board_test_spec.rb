@@ -79,4 +79,27 @@ describe Board do
       end
     end
   end
+
+  describe '#verify_number' do
+    subject(:game_loop) { described_class.new([1, 3, 4], [2, 6]) }
+    context 'when number is invalid and user inputs valid number' do
+      before do
+        valid_number = '7'
+        allow(game_loop).to receive(:puts)
+        allow(game_loop).to receive(:gets).and_return(valid_number)
+      end
+
+      it 'completes loop and display error message' do
+        invalid_number = '6'
+        expect(game_loop).to receive(:puts).once
+        game_loop.verify_number(invalid_number)
+      end
+
+      it 'returns the valid number' do
+        invalid_number = '1'
+        return_value = game_loop.verify_number(invalid_number)
+        expect(return_value).to eq('7')
+      end
+    end
+  end
 end

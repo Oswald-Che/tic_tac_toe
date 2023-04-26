@@ -11,11 +11,11 @@ class Game
     puts "#{@board.display_board} \n Is the board"
     loop do
       puts 'Player 1 turn'
-      @board.player(gets.chomp.to_i , 'X')
+      @board.player(gets.chomp , 'X')
       @board.display
       break if @board.checker
       puts 'Player 2 turn'
-      @board.player(gets.chomp.to_i , 'O')
+      @board.player(gets.chomp , 'O')
       @board.display
       break if @board.checker
     end
