@@ -31,7 +31,7 @@ class Board
   end
 
   def full?
-    !@board.include? ' '
+    @board.none? ' '
   end
 
   def player(num, sigil)

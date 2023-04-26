@@ -46,4 +46,37 @@ describe Board do
     end
 
   end
+
+  describe '#display' do
+    subject(:game_display) { described_class.new}
+    it 'calls puts 3 times' do
+      expect(game_display).to receive(:puts).exactly(3).times
+      game_display.display
+    end
+  end
+
+  describe '#full?' do
+    context 'when board is empty' do
+      subject(:game_full) { described_class.new }
+      it 'is not full' do
+        expect(game_full).not_to be_full
+      end
+    end
+
+    context 'when board is not full' do
+      board = ['X', 'O', 'X', ' ', ' ', ' ', ' ', ' ', ' ']
+      subject(:game_full) { described_class.new([], [], board) }
+      it 'is not full' do
+        expect(game_full).not_to be_full
+      end
+    end
+
+    context 'when board if full' do
+      board = ['X','O', 'X', 'X' ,'O', 'X', 'X', 'O', 'X']
+      subject(:game_full) { described_class.new([], [], board) }
+      it 'is full' do
+        expect(game_full).to be_full
+      end
+    end
+  end
 end
