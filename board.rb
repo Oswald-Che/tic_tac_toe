@@ -14,10 +14,10 @@ class Board
   def win?
     @solution.each do |item|
       if (item & @result_x) == item
-        @winner = result_x[0]
+        @winner = 'X'
         return true
       elsif (item & @result_o) == item
-        @winner = result_o[0]
+        @winner = 'O'
         return true
       end
     end
