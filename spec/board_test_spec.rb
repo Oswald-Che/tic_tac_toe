@@ -101,5 +101,95 @@ describe Board do
         expect(return_value).to eq('7')
       end
     end
+
+    context 'when user inputs invalid number twice and valid number' do
+      before do
+        invalid_number = '4'
+        valid_number = '7'
+        allow(game_loop).to receive(:puts)
+        allow(game_loop).to receive(:gets).and_return(invalid_number, valid_number)
+      end
+
+      it 'completes loop twice and display error message' do
+        invalid_number = '6'
+        expect(game_loop).to receive(:puts).twice
+        game_loop.verify_number(invalid_number)
+      end
+
+      it 'returns the valid number' do
+        invalid_number = '1'
+        return_value = game_loop.verify_number(invalid_number)
+        expect(return_value).to eq('7')
+      end
+    end
+  end
+
+  describe '#player_input' do
+    context 'when X plays' do
+      subject(:game_playerX) { described_class.new }
+      before do
+        allow(game_playerX).to receive(:verify_number) { '5' }
+      end
+
+      it 'updates result_x' do
+        input = '5'
+        sigil = 'X'
+        game_playerX.player_input(input, sigil)
+        result_x = game_playerX.instance_variable_get(:@result_x)
+        expect(result_x).to include(input.to_i)
+      end
+    end
+
+    context 'when O plays' do
+      subject(:game_playerO) { described_class.new }
+      before do
+        allow(game_playerO).to receive(:verify_number) { '5' }
+      end
+
+      it 'updates result_o' do
+        input = '5'
+        sigil = 'O'
+        game_playerO.player_input(input, sigil)
+        result_o = game_playerO.instance_variable_get(:@result_o)
+        expect(result_o).to include(input.to_i)
+      end
+    end
+  end
+
+  describe '#game_over?' do
+    subject(:game_end) { described_class.new }
+    context 'when a player wins' do
+      before do
+        allow(game_end).to receive(:win?).and_return(true)
+        allow(game_end).to receive(:full?).and_return(false)
+        allow(game_end).to receive(:print)
+      end
+
+      it 'is game over' do
+        expect(game_end).to be_game_over
+      end
+
+      it 'recieve print 3 times' do
+        expect(game_end).to receive(:print).exactly(3).times
+        game_end.game_over?
+      end
+    end
+
+    context 'when board is full' do
+      before do
+        allow(game_end).to receive(:win?).and_return(false)
+        allow(game_end).to receive(:full?).and_return(true)
+        allow(game_end).to receive(:print)
+      end
+
+      it 'is game over' do
+        expect(game_end).to be_game_over
+      end
+
+      it 'recieve print 3 times' do
+        expect(game_end).to receive(:print).once
+        game_end.game_over?
+      end
+    end
   end
 end

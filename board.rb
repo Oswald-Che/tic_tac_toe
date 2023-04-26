@@ -34,17 +34,11 @@ class Board
     @board.none? ' '
   end
 
-  def player(num, sigil)
-    if @result.include?(num) || !(1..9).include?(num)
-      puts 'Position already occupied or indeterminate  '
-      display
-      puts 'input different a different number'
-      return player(gets.chomp.to_i, sigil)
-    end
+  def player_input(num, sigil)
+    num = verify_number(num).to_i
 
-    @board[num - 1] = sigil == 'X' ? 'X' : 'O'
-    @result.push(num)
-    sigil == 'X' ? @resultX.push(num) : @resultO.push(num)
+    @board[num - 1] = sigil
+    sigil == 'X' ? @result_x.push(num) : @result_o.push(num)
   end
 
   def verify_number(num)
@@ -57,16 +51,14 @@ class Board
     end
   end
  
-  def checker
+  def game_over?
     if win?
-      puts 'Game Over'
-      print 'Congratulations to '
+      print "Game Over \n Congratulations to "
       @winner == 'X' ? print('Player 1 ') : print('Player 2')
       print " for winning the game\n"
       true
     elsif full?
-      puts 'No Space Left'
-      puts 'Game Over'
+      print "Game Over  \n No Space Left"
       true
     end
   end
