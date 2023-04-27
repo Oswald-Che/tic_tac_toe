@@ -32,6 +32,8 @@ class Game
     player == 1 ? 'X' : 'O'
   end
 
+  private
+
   def input
     gets.chomp
   end
