@@ -10,32 +10,36 @@ class Game
     game_play
   end
 
+  # def game_play
+  #   loop do
+  #     puts 'Player 1 turn'
+  #     @board.player(input, 'X')
+  #     @board.display
+  #     break if @board.checker
+
+  #     puts 'Player 2 turn'
+  #     @board.player(input, 'O')
+  #     @board.display
+  #     break if @board.checker
+  #   end
+  # end
+
   def game_play
-    loop do
-      puts 'Player 1 turn'
-      @board.player(input, 'X')
-      @board.display
-      break if @board.checker
-
-      puts 'Player 2 turn'
-      @board.player(input, 'O')
-      @board.display
-      break if @board.checker
-    end
-  end
-
-  def try
     i = 1
     loop do
-      player = i.odd? ? 1 : 2
+      player = check_player(i)
       puts "Player #{player} turn"
       sigil = check_sigil(player)
-      @board.player(input, sigil)
+      @board.player_input(input, sigil)
       @board.display
-      break if @board.checker
+      break if @board.game_over?
 
       i += 1
     end
+  end
+
+  def check_player(num)
+    num.odd? ? 1 : 2
   end
 
   def check_sigil(num)
