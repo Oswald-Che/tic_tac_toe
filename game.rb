@@ -10,20 +10,6 @@ class Game
     game_play
   end
 
-  # def game_play
-  #   loop do
-  #     puts 'Player 1 turn'
-  #     @board.player(input, 'X')
-  #     @board.display
-  #     break if @board.checker
-
-  #     puts 'Player 2 turn'
-  #     @board.player(input, 'O')
-  #     @board.display
-  #     break if @board.checker
-  #   end
-  # end
-
   def game_play
     i = 1
     loop do
@@ -42,8 +28,8 @@ class Game
     num.odd? ? 1 : 2
   end
 
-  def check_sigil(num)
-    num == 1 ? 'X' : 'O'
+  def check_sigil(player)
+    player == 1 ? 'X' : 'O'
   end
 
   def input

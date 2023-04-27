@@ -73,6 +73,35 @@ describe Game do
         expect(return_value).to eq(1)
       end
     end
+
+    context 'when number is even' do
+      before do 
+        allow(number).to receive(:odd?).and_return(false)
+      end
+
+      it 'returns 2' do
+        return_value = game_check_player.check_player(number)
+        expect(return_value).to eq(2)
+      end
+    end
+  end
+
+  describe '#check_sigil' do
+    subject(:game_check_sigil) { described_class.new}
+
+    context 'for player 1' do
+      it 'return X' do
+        result = game_check_sigil.check_sigil(1)
+        expect(result).to eq('X')
+      end
+
+      context 'for player 2' do
+        it 'return O' do
+          result = game_check_sigil.check_sigil(2)
+          expect(result).to eq('O')
+        end
+      end
+    end
   end
 
 end
